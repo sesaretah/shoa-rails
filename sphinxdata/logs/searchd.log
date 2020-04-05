@@ -1,0 +1,8 @@
+[Mon Apr  6 01:17:46.655 2020] [-1] watchdog: main process 527 forked ok
+[Mon Apr  6 01:17:46.656 2020] [-1] listening on all interfaces, port=9312
+[Mon Apr  6 01:17:46.657 2020] [-1] listening on all interfaces, port=9306
+[Mon Apr  6 01:17:46.658 2020] [-1] prereading 0 indexes
+[Mon Apr  6 01:17:46.658 2020] [-1] accepting connections
+[Mon Apr  6 01:17:46.658 2020] [-1] prereaded 0 indexes in 0.000 sec
+[Mon Apr  6 01:17:46.665 2020] [-1] WARNING: failed to set nodelay option: Operation not supported on socket
+[Mon Apr  6 01:17:48.161 2020] [-1] WARNING: last message repeated 1 times
