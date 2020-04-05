@@ -1,0 +1,12 @@
+fa:
+  like_notification: 'ابراز علاقه شد'
+  bookmark_notification: 'نشان گذاری شد'
+  follow_notification: 'دنبال شد'
+  share_notification:  'به اشتراک گذاشته شد'
+  via: 'توسط'
+  onto: 'بر روی'
+  notification: 'اطلاع رسانی'
+  thanks: 'با تشکر'
+  view: 'مشاهده'
+  need_help: 'چنانجه پرسشی دارید؟'
+  contact_us: 'با ما تماس بگیرید'

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  #devise_for :users
+  devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   api_version(:module => "V1", :path => {:value => "v1"}) do
 
@@ -19,7 +19,8 @@ Rails.application.routes.draw do
     get '/roles/abilities/delete', to: 'roles#remove_ability'
 
     get '/comments/delete', to: 'comments#destroy'
-
+    get '/notifications' , to: 'notifications#my'
+    post '/notifications' , to: 'notifications#seen'
 
     resources :profiles
     resources :channels

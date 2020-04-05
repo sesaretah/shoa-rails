@@ -45,7 +45,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'versionist'
 gem 'rack-cors'
-#gem 'devise'
+gem 'devise'
 gem 'jwt'
 
 gem 'pg'
@@ -55,4 +55,5 @@ gem 'active_model_serializers'
 gem 'fast_jsonapi'
 gem 'thinking-sphinx'
 gem 'will_paginate'
-gem 'activeresource'
+gem 'sidekiq'
+gem 'activejob'
