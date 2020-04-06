@@ -2,8 +2,7 @@ class V1::ProfilesController < ApplicationController
 
   def add_experties
     @profile = Profile.find(params[:id])
-    @profile.experties << params[:experties]
-    @profile.save
+    @profile.add_experties(params[:experties])
     render json: { data: ProfileSerializer.new(@profile).as_json, klass: 'Profile' }, status: :ok
   end
 

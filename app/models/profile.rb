@@ -10,5 +10,11 @@ class Profile < ApplicationRecord
     "#{self.name} #{self.surename}"
   end
 
-
+  def add_experties(experties)
+    if self.experties.blank?
+      self.experties = []
+    end
+    self.experties << experties
+    self.save
+  end
 end
