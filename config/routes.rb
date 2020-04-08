@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get '/posts/search', to: 'posts#search'
 
     get '/channels/search', to: 'channels#search'
+    get '/channels/my', to: 'channels#my'
 
 
     post '/roles/abilities', to: 'roles#abilities'
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
     post '/users/assignments', to: 'users#assignments'
     get '/users/assignments/delete', to: 'users#delete_assignment'
     post '/users/login', to: 'users#login'
+    post '/users/verify', to: 'users#verify'
     post '/users/sign_up', to: 'users#sign_up'
 
   end

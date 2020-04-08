@@ -11,6 +11,8 @@ class NotificationsMailer < ActionMailer::Base
             @body = "#{t(:follow_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
         when  'Share'
             @body = "#{t(:share_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
+        when  'Comment'
+            @body = "#{t(:comment_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
         end
         mail(   :to      => @user.email,
                 :from => 'snadmin@ut.ac.ir',
@@ -19,5 +21,5 @@ class NotificationsMailer < ActionMailer::Base
           format.text
           format.html
         end
-      end
     end
+end

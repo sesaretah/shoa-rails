@@ -1,6 +1,6 @@
 class ProfileSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :name, :surename, :fullname, :bio,  :avatar, :metas, :last_login, :channels, :experties
+  attributes :id, :name, :surename, :fullname, :bio,  :avatar, :metas, :last_login, :channels, :experties, :followers, :followees
 
   belongs_to :user
 
@@ -8,7 +8,7 @@ class ProfileSerializer < ActiveModel::Serializer
     object.user.channels
   end 
   def last_login
-    object.user.last_sign_in_at
+    object.user.last_login
   end
 
   def bio
@@ -29,11 +29,23 @@ class ProfileSerializer < ActiveModel::Serializer
     return result
   end
 
-  def avatar
-    if object.avatar.attached?
-      Rails.application.routes.default_url_options[:host] + rails_blob_url(object.avatar, only_path: true)
-    else
-      Rails.application.routes.default_url_options[:host] + "/images/default.png"
+  def followers
+    result = []
+    for follower in object.profile_followers
+      result << {id: follower.profile.id, user_id: follower.id, fullname: follower.profile.fullname, avatar: follower.profile.profile_avatar}
     end
+    return result
+  end
+
+  def followees
+    result = []
+    for follower in object.profile_followees
+      result << {id: follower.profile.id, user_id: follower.id, fullname: follower.profile.fullname, avatar: follower.profile.profile_avatar}
+    end
+    return result
+  end
+
+  def avatar
+    object.profile_avatar
   end
 end

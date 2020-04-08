@@ -3,6 +3,7 @@ fa:
   bookmark_notification: 'نشان گذاری شد'
   follow_notification: 'دنبال شد'
   share_notification:  'به اشتراک گذاشته شد'
+  comment_notification: 'نظر داده شد'
   via: 'توسط'
   onto: 'بر روی'
   notification: 'اطلاع رسانی'
@@ -10,3 +11,5 @@ fa:
   view: 'مشاهده'
   need_help: 'چنانجه پرسشی دارید؟'
   contact_us: 'با ما تماس بگیرید'
+  your_access_code_is: 'کد دسترسی شما به شرح زیر است'
+  

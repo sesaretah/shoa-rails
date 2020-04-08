@@ -17,4 +17,5 @@ class Interaction < ApplicationRecord
     return @interactionable.user if @interactionable
   end
 
+
 end

@@ -5,6 +5,11 @@ class V1::ChannelsController < ApplicationController
     render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id,  each_serializer: ChannelSerializer ).as_json, klass: 'Channel' }, status: :ok
   end
 
+  def my
+    channels = Channel.where(user_id: current_user.id)
+    render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id,  each_serializer: ChannelSerializer ).as_json, klass: 'Channel' }, status: :ok
+  end
+
   def search
     if !params[:q].blank?
       channels = Channel.search params[:q], star: true, page: params[:page], per_page: 6
