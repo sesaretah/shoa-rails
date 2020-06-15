@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-
+    require 'unicode_fixer'
     before_action :inspect_unicode
     
     def inspect_unicode
