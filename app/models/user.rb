@@ -36,5 +36,10 @@ class User < ApplicationRecord
     user = self.where('last_code = ? AND last_code_datetime > ?', code, 10.minutes.ago).first
   end
 
+  def follow(user)
+    interaction = Interaction.where(interaction_type: 'Follow', interactionable_type: 'Profile', interactionable_id: user.id, user_id: self.profile.id).first
+    return true if interaction
+  end
+
   
 end

@@ -8,7 +8,7 @@ class NotificationsMailer < ActionMailer::Base
         when  'Bookmark'
             @body = "#{t(:bookmark_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
         when  'Follow'
-            @body = "#{t(:follow_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
+            @body = "#{notify_text}  #{t(:via)} #{notifier} #{t(:follow_notification)}" 
         when  'Share'
             @body = "#{t(:share_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
         when  'Comment'

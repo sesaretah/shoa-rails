@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_211319) do
+ActiveRecord::Schema.define(version: 2020_04_09_191554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,13 @@ ActiveRecord::Schema.define(version: 2020_04_07_211319) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "global_settings", force: :cascade do |t|
+    t.string "title"
+    t.json "settings"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "interactions", force: :cascade do |t|
     t.string "interaction_type"
     t.integer "interactionable_id"
@@ -132,6 +139,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_211319) do
     t.integer "user_id"
     t.json "experties"
     t.string "faculty"
+    t.json "privacy"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -141,6 +149,15 @@ ActiveRecord::Schema.define(version: 2020_04_07_211319) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.boolean "default_role"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "title"
+    t.json "settings"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.json "content"
+    t.integer "user_id"
   end
 
   create_table "shares", force: :cascade do |t|

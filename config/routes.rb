@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     get '/profiles/my', to: 'profiles#my'
     post '/profiles/add_experties/:id', to: 'profiles#add_experties'
     post '/profiles/remove_experties/:id', to: 'profiles#remove_experties'
+
+    
     
     get '/posts/search', to: 'posts#search'
 
@@ -18,6 +20,9 @@ Rails.application.routes.draw do
 
     post '/roles/abilities', to: 'roles#abilities'
     get '/roles/abilities/delete', to: 'roles#remove_ability'
+
+    get '/privacy/:id', to: 'privacies#show'
+    post '/privacy', to: 'privacies#update'
 
     get '/comments/delete', to: 'comments#destroy'
     get '/notifications' , to: 'notifications#my'
@@ -36,6 +41,9 @@ Rails.application.routes.draw do
     resources :comments
     resources :metas
     resources :actuals
+    resources :friendships
+    resources :settings
+
 
 
     post '/users/assignments', to: 'users#assignments'

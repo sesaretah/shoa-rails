@@ -1,5 +1,10 @@
 class V1::ProfilesController < ApplicationController
 
+  def friendships
+    @profile = Profile.find(params[:id])
+    render json: { data: FriendshipSerializer.new(@profile).as_json, klass: 'Friendship' }, status: :ok
+  end
+  
   def add_experties
     @profile = Profile.find(params[:id])
     @profile.add_experties(params[:experties])
@@ -25,7 +30,7 @@ class V1::ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find(params[:id])
-    render json: { data: ProfileSerializer.new(@profile).as_json,  klass: 'Profile' }, status: :ok
+    render json: { data: ProfileSerializer.new(@profile, scope: {user_id: current_user.id}).as_json,  klass: 'Profile' }, status: :ok
   end
 
   def my

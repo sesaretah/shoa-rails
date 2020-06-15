@@ -17,6 +17,10 @@ class ApplicationRecord < ActiveRecord::Base
     User.joins(:interactions).where('interactions.interaction_type = ?', 'Follow')
   end
 
+  def followees
+    User.joins(:interactions).where('interactions.interaction_type = ?', 'Follow')
+  end
+
 
   def liked(user_id)
     if self.interactions.where(interaction_type: 'Like', user_id: user_id).first
