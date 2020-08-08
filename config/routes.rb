@@ -31,6 +31,10 @@ Rails.application.routes.draw do
     get '/notifications' , to: 'notifications#my'
     post '/notifications' , to: 'notifications#seen'
 
+    post '/notification_settings/add', to: 'notification_settings#add'
+    post '/notification_settings/remove', to: 'notification_settings#remove'
+
+
     resources :profiles
     resources :channels
     resources :posts
@@ -46,6 +50,9 @@ Rails.application.routes.draw do
     resources :actuals
     resources :friendships
     resources :settings
+    resources :ratings
+    resources :notification_settings
+    resources :devices
 
 
 

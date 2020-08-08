@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_191554) do
+ActiveRecord::Schema.define(version: 2020_08_08_144804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,14 @@ ActiveRecord::Schema.define(version: 2020_04_09_191554) do
     t.integer "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "reply_id"
+  end
+
+  create_table "devices", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "global_settings", force: :cascade do |t|
@@ -108,6 +116,13 @@ ActiveRecord::Schema.define(version: 2020_04_09_191554) do
     t.string "label"
   end
 
+  create_table "notification_settings", force: :cascade do |t|
+    t.integer "user_id"
+    t.json "notification_setting"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "notifiable_id"
     t.string "notifiable_type"
@@ -118,6 +133,8 @@ ActiveRecord::Schema.define(version: 2020_04_09_191554) do
     t.string "notification_type"
     t.boolean "seen"
     t.integer "status"
+    t.string "custom_text"
+    t.json "target_user_hash"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -140,6 +157,14 @@ ActiveRecord::Schema.define(version: 2020_04_09_191554) do
     t.json "experties"
     t.string "faculty"
     t.json "privacy"
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "user_id"
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|

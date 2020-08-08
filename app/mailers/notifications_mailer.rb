@@ -1,6 +1,6 @@
 class NotificationsMailer < ActionMailer::Base
 
-    def notify_email(user_id, notify_type, notifier, notify_text)
+    def notify_email(user_id, notify_type, notifier, notify_text, custom_text, auxiliary_custom_text=nil)
         @user = User.find(user_id)
         case notify_type
         when  'Like'
