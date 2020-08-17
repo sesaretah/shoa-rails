@@ -1,8 +1,20 @@
 class ProfileSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :name, :surename, :fullname, :bio,  :avatar, :metas, :last_login, :channels, :experties, :followers, :followees, :likes, :bookmarks, :follows
+  attributes :id, :name, :surename, :fullname, :bio,  
+              :avatar, :metas, :last_login, :channels, 
+              :experties, :followers, :followees, :likes, :bookmarks, :follows,
+              :editable
 
   belongs_to :user
+
+
+  def editable
+    if scope && scope[:user_id] && object.user_id == scope[:user_id]
+      return true
+    else
+      return false
+    end
+  end
 
   def channels
     if scope && scope[:user_id] && object.privacy_rule('view_channels', scope[:user_id])

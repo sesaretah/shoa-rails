@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     resources :ratings
     resources :notification_settings
     resources :devices
+    resources :rooms
 
 
 

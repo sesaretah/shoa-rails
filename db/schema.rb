@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_08_144804) do
+ActiveRecord::Schema.define(version: 2020_08_17_151604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,18 @@ ActiveRecord::Schema.define(version: 2020_08_08_144804) do
     t.boolean "default_role"
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "user_id"
+    t.boolean "private"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "uuid"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+    t.index ["uuid"], name: "index_rooms_on_uuid"
+  end
+
   create_table "settings", force: :cascade do |t|
     t.string "title"
     t.json "settings"
@@ -193,6 +205,27 @@ ActiveRecord::Schema.define(version: 2020_08_08_144804) do
     t.datetime "updated_at", null: false
     t.integer "channel_id"
     t.integer "post_id"
+  end
+
+  create_table "subscribers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.string "rfid"
+    t.string "current_mode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["current_mode"], name: "index_subscribers_on_current_mode"
+    t.index ["rfid"], name: "index_subscribers_on_rfid"
+    t.index ["room_id"], name: "index_subscribers_on_room_id"
+    t.index ["user_id"], name: "index_subscribers_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "room_id"
+    t.string "subscription_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "uploads", force: :cascade do |t|

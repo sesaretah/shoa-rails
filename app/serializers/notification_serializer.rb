@@ -1,5 +1,6 @@
 class NotificationSerializer < ActiveModel::Serializer
-  attributes :id, :content, :profile, :target_type, :target_id, :seen
+  attributes :id, :content, :profile, :target_type, :target_id, :seen,
+              :notification_text
 
   def content
     case object.notification_type
@@ -24,5 +25,9 @@ class NotificationSerializer < ActiveModel::Serializer
 
   def target_id
     object.notifiable_id
+  end
+
+  def notification_text 
+    object.fcm_text(nil, object.notification_type, object.user.profile.fullname, object.notifiable.title, object.custom_text)
   end
 end
