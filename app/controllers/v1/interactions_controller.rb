@@ -2,7 +2,7 @@ class V1::InteractionsController < ApplicationController
 
 
   def create
-    interaction = Interaction.where(interaction_params).first
+    interaction = current_user.interactions.where(interaction_params).first
     if interaction.blank?
       result = Interaction.create(user_megred(interaction_params))
     else 
