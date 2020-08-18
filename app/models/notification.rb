@@ -80,6 +80,7 @@ class Notification < ApplicationRecord
         return 'add_shares_to_'+ model.downcase.pluralize+'_' if  type == 'Share'
         return 'add_follows_to_'+ model.downcase.pluralize+'_' if  type == 'Follow'
         return 'add_bookmarks_to_'+ model.downcase.pluralize+'_' if  type == 'Bookmark'
+        return 'add_comments_to_'+ model.downcase.pluralize+'_' if  type == 'Comment'
 
     end
 
