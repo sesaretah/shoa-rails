@@ -1,5 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
-  include Rails.application.routes.url_helpers
-  attributes :id, :email
-
+  attributes :id, :email, :profile_id
+  def profile_id
+    object.profile.id if !object.profile.blank?
+  end
 end

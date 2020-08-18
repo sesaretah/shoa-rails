@@ -22,7 +22,7 @@ class V1::ChannelsController < ApplicationController
 
   def show
     @channel = Channel.find(params[:id])
-    render json: { data:  ChannelSerializer.new(@channel, user_id: current_user.id).as_json, klass: 'Channel'}, status: :ok
+    render json: { data:  ChannelSerializer.new(@channel, user_id: current_user.id, scope: {user_id: current_user.id}).as_json, klass: 'Channel'}, status: :ok
   end
 
   def create
@@ -35,7 +35,7 @@ class V1::ChannelsController < ApplicationController
 
   def update
     @channel = Channel.find(params[:id])
-    if @channel.update_attributes(channel_params)
+    if owner(@channel, current_user) && @channel.update_attributes(channel_params)
       render json: { data: ChannelSerializer.new(@channel, user_id: current_user.id).as_json, klass: 'Channel' }, status: :ok
     else
       render json: { data: @channel.errors.full_messages  }, status: :ok
@@ -44,7 +44,7 @@ class V1::ChannelsController < ApplicationController
 
   def destroy
     @channel = Channel.find(params[:id])
-    if @channel.destroy
+    if owner(@channel, current_user) && @channel.destroy
       render json: { data: 'OK'}, status: :ok
     end
   end

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     post '/notification_settings/add', to: 'notification_settings#add'
     post '/notification_settings/remove', to: 'notification_settings#remove'
 
+    get '/users/role', to: 'users#role'
 
     resources :profiles
     resources :channels

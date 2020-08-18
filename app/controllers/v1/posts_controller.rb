@@ -20,7 +20,7 @@ class V1::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     params[:page].blank? ? @page = 1 : @page = params[:page]
-    render json: { data:  PostSerializer.new(@post, user_id: current_user.id, page: @page).as_json, klass: 'Post'}, status: :ok
+    render json: { data:  PostSerializer.new(@post, user_id: current_user.id, page: @page, scope: {user_id: current_user.id}).as_json, klass: 'Post'}, status: :ok
   end
 
   def create

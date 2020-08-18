@@ -1,8 +1,19 @@
 class PostSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :title, :draft, :content, :likes, :bookmarks, :follows, :liked, :bookmarked, :followed, :comments, :rating, :rated
+  attributes :id, :title, :draft, :content, :likes, :bookmarks, 
+              :follows, :liked, :bookmarked, :followed, :comments, 
+              :rating, :rated, :editable
   belongs_to :profile,  serializer: ProfileSerializer
   #belongs_to :comments,  serializer: CommentSerializer
+
+
+  def editable
+    if scope && scope[:user_id] && object.user_id == scope[:user_id]
+      return true
+    else
+      return false
+    end
+  end
 
   def comments
     comments = object.comments.order('created_at DESC').limit(instance_options[:page].to_i*5)

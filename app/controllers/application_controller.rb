@@ -11,4 +11,12 @@ class ApplicationController < ActionController::API
           value.is_a?(Hash) ? fix_unicode_values(key, value) : hash[key] = UnicodeFixer.fix(value)
         }
     end
+
+    def owner(obj, user)
+        if obj.user_id == user.id
+          return true
+        else
+          return false
+        end
+    end
 end

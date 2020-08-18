@@ -1,8 +1,16 @@
 class ChannelSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :title, :content, :likes, :bookmarks, :follows, :liked, :bookmarked, :followed, :posts, :avatar
+  attributes :id, :title, :content, :likes, :bookmarks, :follows, 
+             :liked, :bookmarked, :followed, :posts, :avatar, :editable
   belongs_to :profile,  serializer: ProfileSerializer
   #has_many :posts,  serializer: PostSerializer
+  def editable
+    if scope && scope[:user_id] && object.user_id == scope[:user_id]
+      return true
+    else
+      return false
+    end
+  end
 
   def posts
     result = []

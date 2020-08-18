@@ -8,6 +8,7 @@ class ProfileSerializer < ActiveModel::Serializer
   belongs_to :user
 
 
+
   def editable
     if scope && scope[:user_id] && object.user_id == scope[:user_id]
       return true

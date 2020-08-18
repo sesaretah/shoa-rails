@@ -13,6 +13,14 @@ class User < ApplicationRecord
   has_many :shares
   has_one :notification_setting
   has_many :devices
+  after_create :assign_default_role
+
+  def assign_default_role
+    default_roles = Role.where(default_role: true)
+    for default_role in default_roles
+      self.assign(default_role.id)
+    end
+  end
 
   def assign(role_id)
     self.assignments = [] if self.assignments.blank?
@@ -22,7 +30,37 @@ class User < ApplicationRecord
 
   def unassign(role_id)
     self.assignments -= [role_id] if !self.assignments.blank?
+    if self.current_role_id == role_id
+      self.current_role_id = nil
+    end
     self.save
+    self.assign_available_role
+  end
+
+  def selected_role
+    self.assign_available_role
+    Role.find_by_id(self.current_role_id)
+  end
+
+  def assign_available_role
+    if self.current_role_id.blank?
+      self.current_role_id = self.assignments[0] if !self.assignments.blank? && self.assignments[0] 
+      self.save
+    end
+  end
+
+  def ability
+    self.selected_role.ability if self.selected_role
+  end
+
+  def has_ability(ab)
+    flag = false
+    if !self.selected_role.blank? && !self.selected_role.ability.blank?
+      for a in self.selected_role.ability
+        flag = true if a['title'] == ab
+      end
+    end
+    return flag
   end
 
   def notify_user
