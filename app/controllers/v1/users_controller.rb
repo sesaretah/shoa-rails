@@ -64,6 +64,14 @@ class V1::UsersController < ApplicationController
     end
   end
 
+  def change_role
+    if !current_user.blank?
+      current_user.current_role_id = params[:role_id]
+      current_user.save
+      render json: { data:  AbilitySerializer.new(current_user).as_json, klass: 'UserRole'}, status: :ok
+    end
+  end
+
 
   def assignments
     user = User.find(params[:user_id])

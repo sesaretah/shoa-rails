@@ -28,6 +28,16 @@ class User < ApplicationRecord
     self.save
   end
 
+  def roles
+    roles = []
+    for assignment in  self.assignments
+      role = Role.find_by_id(assignment)
+      self.current_role_id == assignment ? current = true : current = false
+      roles <<   {title: role.title, id: role.id, current: current} if !role.blank?
+    end
+    return roles
+  end
+
   def unassign(role_id)
     self.assignments -= [role_id] if !self.assignments.blank?
     if self.current_role_id == role_id
