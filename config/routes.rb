@@ -68,6 +68,6 @@ Rails.application.routes.draw do
     
 
   end
-  get '/index.html', :to => redirect("/?rnd=#{SecureRandom.hex(10)}")
+  get '/', :to => redirect("app.html?rnd=#{SecureRandom.hex(10)}")
   get 'index.html', :to => redirect("/?rnd=#{SecureRandom.hex(10)}")
 end
