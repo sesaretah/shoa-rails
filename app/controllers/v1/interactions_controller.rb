@@ -9,7 +9,7 @@ class V1::InteractionsController < ApplicationController
       result = interaction
       interaction.destroy
     end
-    render json:  InteractionSerializer.new(result, source_type: params[:source_type], source_id: params[:source_id], user_id: current_user.id).as_json, status: :ok
+    render json:  InteractionSerializer.new(result, source_type: params[:source_type], source_id: params[:source_id], user_id: current_user.id, scope: {user_id: current_user.id}).as_json, status: :ok
   end
 
   def destroy

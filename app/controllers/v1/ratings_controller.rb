@@ -11,7 +11,7 @@ class V1::RatingsController < ApplicationController
     end
     post = rating.post
     if rating.save
-      render json: { data:  PostSerializer.new(post, user_id: current_user.id, page: 1).as_json, klass: 'Post'}, status: :ok
+      render json: { data:  PostSerializer.new(post, scope: {user_id: current_user.id}, user_id: current_user.id, page: 1).as_json, klass: 'Post'}, status: :ok
     end
   end
 
