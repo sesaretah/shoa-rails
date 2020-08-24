@@ -17,7 +17,7 @@ class PostSerializer < ActiveModel::Serializer
 
   def comments
     comments = object.comments.order('created_at DESC').limit(instance_options[:page].to_i*5)
-    return ActiveModel::SerializableResource.new(comments,  each_serializer: CommentSerializer ).as_json
+    return ActiveModel::SerializableResource.new(comments,  each_serializer: CommentSerializer, scope: {user_id: scope[:user_id]} ).as_json
   end 
 
   def content

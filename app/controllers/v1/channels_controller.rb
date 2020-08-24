@@ -2,12 +2,12 @@ class V1::ChannelsController < ApplicationController
 
   def index
     channels = Channel.paginate(page: params[:page], per_page: 6)
-    render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id,  each_serializer: ChannelSerializer ).as_json, klass: 'Channel' }, status: :ok
+    render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id,  each_serializer: ChannelSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Channel' }, status: :ok
   end
 
   def my
     channels = Channel.where(user_id: current_user.id)
-    render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id,  each_serializer: ChannelSerializer ).as_json, klass: 'Channel' }, status: :ok
+    render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id, scope: {user_id: current_user.id},  each_serializer: ChannelSerializer ).as_json, klass: 'Channel' }, status: :ok
   end
 
   def search
@@ -16,7 +16,7 @@ class V1::ChannelsController < ApplicationController
     else 
       channels = Channel.paginate(page: params[:page], per_page: 6)
     end
-    render json: { data: ActiveModel::SerializableResource.new(channels,  each_serializer: ChannelSerializer ).as_json, klass: 'Channel' }, status: :ok
+    render json: { data: ActiveModel::SerializableResource.new(channels,  each_serializer: ChannelSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Channel' }, status: :ok
   end
 
 
@@ -29,14 +29,14 @@ class V1::ChannelsController < ApplicationController
     @channel = Channel.new(channel_params)
     @channel.user_id = current_user.id
     if @channel.save
-      render json: { data: ChannelSerializer.new(@channel).as_json, klass: 'Channel' }, status: :ok
+      render json: { data: ChannelSerializer.new(@channel, scope: {user_id: current_user.id}).as_json, klass: 'Channel' }, status: :ok
     end
   end
 
   def update
     @channel = Channel.find(params[:id])
     if owner(@channel, current_user) && @channel.update_attributes(channel_params)
-      render json: { data: ChannelSerializer.new(@channel, user_id: current_user.id).as_json, klass: 'Channel' }, status: :ok
+      render json: { data: ChannelSerializer.new(@channel, user_id: current_user.id, scope: {user_id: current_user.id}).as_json, klass: 'Channel' }, status: :ok
     else
       render json: { data: @channel.errors.full_messages  }, status: :ok
     end

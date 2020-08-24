@@ -6,7 +6,7 @@ class V1::CommentsController < ApplicationController
     params[:page].blank? ? @page = 1 : @page = params[:page]
     @post = @comment.post
     if @comment.save
-      render json: { data:  PostSerializer.new(@post, user_id: current_user.id, page: @page).as_json, klass: 'Post'}, status: :ok
+      render json: { data:  PostSerializer.new(@post, user_id: current_user.id, scope: {user_id: current_user.id}, page: @page).as_json, klass: 'Post'}, status: :ok
     end
   end
 
@@ -15,7 +15,7 @@ class V1::CommentsController < ApplicationController
     @post = @comment.post
     params[:page].blank? ? @page = 1 : @page = params[:page]
     if @comment.destroy
-      render json: { data:  PostSerializer.new(@post, user_id: current_user.id, page: @page).as_json, klass: 'Post'}, status: :ok
+      render json: { data:  PostSerializer.new(@post, user_id: current_user.id, scope: {user_id: current_user.id}, page: @page).as_json, klass: 'Post'}, status: :ok
     end
   end
 

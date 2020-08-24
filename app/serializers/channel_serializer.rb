@@ -15,7 +15,7 @@ class ChannelSerializer < ActiveModel::Serializer
   def posts
     result = []
     for post in object.posts
-      result << PostSerializer.new(post).as_json
+      result << PostSerializer.new(post, scope: {user_id: scope[:user_id]}).as_json
     end
     return result
   end
