@@ -8,7 +8,7 @@ class V1::RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    render json: { data:  RoomSerializer.new(@room, user_id: current_user.id).as_json, klass: 'Room'}, status: :ok
+    render json: { data:  RoomSerializer.new(@room, scope: {user_id: current_user.id}, user_id: current_user.id).as_json, klass: 'Room'}, status: :ok
   end
 
 

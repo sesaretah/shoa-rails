@@ -13,7 +13,15 @@ class User < ApplicationRecord
   has_many :shares
   has_one :notification_setting
   has_many :devices
+  
   after_create :assign_default_role
+  before_create :assign_uuid
+  
+
+  def assign_uuid
+    self.uuid = SecureRandom.uuid
+  end
+
 
   def assign_default_role
     default_roles = Role.where(default_role: true)
