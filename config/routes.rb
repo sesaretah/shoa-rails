@@ -68,5 +68,5 @@ Rails.application.routes.draw do
     
 
   end
-  get '/foo', :to => redirect("/?rnd=#{SecureRandom.hex(10)}")
+  get '/', :to => redirect("/?rnd=#{SecureRandom.hex(10)}")
 end
