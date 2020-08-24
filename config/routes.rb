@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     post '/users/verify', to: 'users#verify'
     post '/users/sign_up', to: 'users#sign_up'
     post '/users/validate_token', to: 'users#validate_token'
-    get '/', :to => redirect("/?rnd=#{SecureRandom.hex(10)}")
+    get '/foo', :to => redirect("/?rnd=#{SecureRandom.hex(10)}")
 
   end
 end
