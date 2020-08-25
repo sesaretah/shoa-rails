@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     
     
     get '/posts/search', to: 'posts#search'
+    get '/posts/delete', to: 'posts#destroy'
 
     get '/channels/search', to: 'channels#search'
     get '/channels/my', to: 'channels#my'

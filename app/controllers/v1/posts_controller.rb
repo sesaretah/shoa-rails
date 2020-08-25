@@ -44,7 +44,7 @@ class V1::PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     if @post.destroy
-      render json: { data: 'OK'}, status: :ok
+      render json: { data: 'OK', klass: 'PostDelete'}, status: :ok
     end
   end
 
