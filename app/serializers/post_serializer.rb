@@ -2,7 +2,7 @@ class PostSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   attributes :id, :title, :draft, :content, :likes, :bookmarks, 
               :follows, :liked, :bookmarked, :followed, :comments, 
-              :rating, :rated, :editable
+              :rating, :rated, :editable, :deletable
   belongs_to :profile,  serializer: ProfileSerializer
   #belongs_to :comments,  serializer: CommentSerializer
 
@@ -13,6 +13,16 @@ class PostSerializer < ActiveModel::Serializer
     else
       return false
     end
+  end
+
+  def deletable
+    flag = false
+    if scope && scope[:user_id]
+      flag = true if object.user_id == scope[:user_id]
+      user = User.find(scope[:user_id])
+      flag = true if !user.blank? && !user.ability.blank? && user.has_ability('delete_post')
+    end
+    return flag
   end
 
   def comments
