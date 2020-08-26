@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
     def service
+        OpenSSL::SSL.send(:remove_const, :VERIFY_PEER)
         response = open('https://auth.ut.ac.ir:8443/cas/serviceValidate?service=https%3A%2F%2Fsn.ut.ac.ir%2Fusers%2Fservice&ticket='+params[:ticket]).read
         result = Hash.from_xml(response.gsub("\n", ""))
         Rails.logger.info result
