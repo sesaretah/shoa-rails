@@ -2,12 +2,12 @@ class V1::ChannelsController < ApplicationController
 
   def index
     channels = Channel.paginate(page: params[:page], per_page: 25)
-    render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id,  each_serializer: ChannelSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Channel' }, status: :ok
+    render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id,  each_serializer: ChannelIndexSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Channel' }, status: :ok
   end
 
   def my
     channels = Channel.where(user_id: current_user.id)
-    render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id, scope: {user_id: current_user.id},  each_serializer: ChannelSerializer ).as_json, klass: 'Channel' }, status: :ok
+    render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id, scope: {user_id: current_user.id},  each_serializer: ChannelIndexSerializer ).as_json, klass: 'Channel' }, status: :ok
   end
 
   def search
@@ -16,7 +16,7 @@ class V1::ChannelsController < ApplicationController
     else 
       channels = Channel.paginate(page: params[:page], per_page: 25)
     end
-    render json: { data: ActiveModel::SerializableResource.new(channels,  each_serializer: ChannelSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Channel' }, status: :ok
+    render json: { data: ActiveModel::SerializableResource.new(channels,  each_serializer: ChannelIndexSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Channel' }, status: :ok
   end
 
 
