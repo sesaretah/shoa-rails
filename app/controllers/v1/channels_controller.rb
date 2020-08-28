@@ -1,7 +1,7 @@
 class V1::ChannelsController < ApplicationController
 
   def index
-    channels = Channel.paginate(page: params[:page], per_page: 6)
+    channels = Channel.paginate(page: params[:page], per_page: 30)
     render json: { data: ActiveModel::SerializableResource.new(channels, user_id: current_user.id,  each_serializer: ChannelSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Channel' }, status: :ok
   end
 
@@ -12,9 +12,9 @@ class V1::ChannelsController < ApplicationController
 
   def search
     if !params[:q].blank?
-      channels = Channel.search params[:q], star: true, page: params[:page], per_page: 6
+      channels = Channel.search params[:q], star: true, page: params[:page], per_page: 30
     else 
-      channels = Channel.paginate(page: params[:page], per_page: 6)
+      channels = Channel.paginate(page: params[:page], per_page: 30)
     end
     render json: { data: ActiveModel::SerializableResource.new(channels,  each_serializer: ChannelSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Channel' }, status: :ok
   end
