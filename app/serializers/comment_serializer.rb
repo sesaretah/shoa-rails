@@ -2,7 +2,7 @@ class CommentSerializer < ActiveModel::Serializer
   include ActionView::Helpers::TextHelper
   attributes :id, :content, :created_at, :profile, :reply_to, :editable
   def profile 
-     ProfileSerializer.new(object.profile).as_json
+    ProfileIndexSerializer.new(object.profile).as_json
   end 
 
   def reply_to

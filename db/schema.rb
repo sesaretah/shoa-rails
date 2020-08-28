@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_23_122035) do
+ActiveRecord::Schema.define(version: 2020_08_28_163321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
+    t.index ["meta_id"], name: "index_actuals_on_meta_id"
     t.index ["uuid"], name: "index_actuals_on_uuid", unique: true
   end
 
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "content"
+    t.index ["user_id"], name: "index_channels_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -81,6 +83,8 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reply_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "devices", force: :cascade do |t|
@@ -88,6 +92,7 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
   create_table "global_settings", force: :cascade do |t|
@@ -104,6 +109,10 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["interaction_type"], name: "index_interactions_on_interaction_type"
+    t.index ["interactionable_id"], name: "index_interactions_on_interactionable_id"
+    t.index ["interactionable_type"], name: "index_interactions_on_interactionable_type"
+    t.index ["user_id"], name: "index_interactions_on_user_id"
   end
 
   create_table "meta", force: :cascade do |t|
@@ -121,6 +130,7 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.json "notification_setting"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notification_settings_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -135,6 +145,8 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.integer "status"
     t.string "custom_text"
     t.json "target_user_hash"
+    t.index ["notifiable_id"], name: "index_notifications_on_notifiable_id"
+    t.index ["notifiable_type"], name: "index_notifications_on_notifiable_type"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -144,6 +156,7 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.json "draft"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -157,6 +170,7 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.json "experties"
     t.string "faculty"
     t.json "privacy"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -165,6 +179,7 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.integer "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -174,6 +189,7 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.boolean "default_role"
+    t.index ["user_id"], name: "index_roles_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -208,6 +224,9 @@ ActiveRecord::Schema.define(version: 2020_08_23_122035) do
     t.datetime "updated_at", null: false
     t.integer "channel_id"
     t.integer "post_id"
+    t.index ["channel_id"], name: "index_shares_on_channel_id"
+    t.index ["post_id"], name: "index_shares_on_post_id"
+    t.index ["user_id"], name: "index_shares_on_user_id"
   end
 
   create_table "subscribers", force: :cascade do |t|

@@ -3,7 +3,7 @@ class PostSerializer < ActiveModel::Serializer
   attributes :id, :title, :draft, :content, :likes, :bookmarks, 
               :follows, :liked, :bookmarked, :followed, :comments, 
               :rating, :rated, :editable, :deletable
-  belongs_to :profile,  serializer: ProfileSerializer
+  belongs_to :profile,  serializer: ProfileIndexSerializer
   #belongs_to :comments,  serializer: CommentSerializer
 
 
