@@ -13,7 +13,7 @@ class V1::PostsController < ApplicationController
     else 
       posts = Post.paginate(page: params[:page], per_page: 20)
     end
-    render json: { data: ActiveModel::SerializableResource.new(posts,  each_serializer: PostSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Post' }, status: :ok
+    render json: { data: ActiveModel::SerializableResource.new(posts,  each_serializer: PostSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'PostSearch' }, status: :ok
   end
 
 
