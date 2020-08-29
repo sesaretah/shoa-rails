@@ -21,6 +21,10 @@ class Post < ApplicationRecord
     return rating.value if rating
   end
 
+  def channel
+    Channel.find_by_id(self.channel_id)
+  end
+
   def rated
     ratings = Rating.where(post_id: self.id)
     sum  = 0
@@ -40,5 +44,8 @@ class Post < ApplicationRecord
   def comments 
     Comment.where(post_id: self.id).order('created_at ASC')
   end
+
+
+
 
 end

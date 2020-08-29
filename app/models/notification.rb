@@ -38,6 +38,9 @@ class Notification < ApplicationRecord
 
     def notify_by_mail
         for target_user_id in self.target_user_ids.uniq
+            p '!!!!!!!!!!!!!!!!'
+            p target_user_id
+            p Notification.notification_type_eql(self.notification_type, self.notifiable.class.name)
             if NotificationSetting.check(target_user_id, Notification.notification_type_eql(self.notification_type, self.notifiable.class.name),'email')
                 NotificationsMailer.notify_email(target_user_id, self.notification_type, self.user.profile.fullname, self.notifiable.title, self.custom_text).deliver_later
             end
@@ -70,6 +73,12 @@ class Notification < ApplicationRecord
         when  'Bookmark'
             title = "#{I18n.t(:bookmark_notification)}  #{I18n.t(:via)} #{notifier} #{I18n.t(:onto)} #{notify_text}" 
             body =  "#{truncate(custom_text)}"
+        when  'Comment'
+            title = "#{I18n.t(:comment_notification)}  #{I18n.t(:via)} #{notifier} #{I18n.t(:onto)} #{notify_text}" 
+            body =  "#{truncate(custom_text)}"
+        when  'Post'
+            title = "#{I18n.t(:post_notification)}  #{I18n.t(:via)} #{notifier} #{I18n.t(:onto)} #{notify_text}" 
+            body =  "#{truncate(custom_text)}"
         end
         return {title: title, body: body}
     end
@@ -80,7 +89,8 @@ class Notification < ApplicationRecord
         return 'add_shares_to_'+ model.downcase.pluralize+'_' if  type == 'Share'
         return 'add_follows_to_'+ model.downcase.pluralize+'_' if  type == 'Follow'
         return 'add_bookmarks_to_'+ model.downcase.pluralize+'_' if  type == 'Bookmark'
-        return 'add_comments_to_'+ model.downcase.pluralize+'_' if  type == 'Comment'
+        return 'add_comment_to_'+ model.downcase.pluralize+'_' if  type == 'Comment'
+        return 'add_post_to_'+ model.downcase.pluralize+'_' if  type == 'Post'
 
     end
 

@@ -16,7 +16,7 @@ class V1::ChannelsController < ApplicationController
     else 
       channels = Channel.paginate(page: params[:page], per_page: 25)
     end
-    render json: { data: ActiveModel::SerializableResource.new(channels,  each_serializer: ChannelIndexSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Channel' }, status: :ok
+    render json: { data: ActiveModel::SerializableResource.new(channels,  each_serializer: ChannelIndexSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'ChannelSearch' }, status: :ok
   end
 
 

@@ -4,6 +4,7 @@ fa:
   follow_notification: 'دنبال شد'
   share_notification:  'به اشتراک گذاشته شد'
   comment_notification: 'نظر داده شد'
+  post_notification: 'پست ارسال شد'
   via: 'توسط'
   onto: 'بر روی'
   notification: 'اطلاع رسانی'
