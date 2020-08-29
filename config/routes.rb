@@ -32,6 +32,8 @@ Rails.application.routes.draw do
     get '/notifications' , to: 'notifications#my'
     post '/notifications' , to: 'notifications#seen'
 
+    get '/bookmarks' , to: 'bookmarks#my'
+
     post '/notification_settings/add', to: 'notification_settings#add'
     post '/notification_settings/remove', to: 'notification_settings#remove'
 

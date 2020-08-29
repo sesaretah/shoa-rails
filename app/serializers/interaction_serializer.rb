@@ -5,10 +5,10 @@ class InteractionSerializer < ActiveModel::Serializer
   def data
     case instance_options[:source_type]
     when nil
-      PostSerializer.new(object.interactionable, user_id: instance_options[:user_id],  scope: {user_id: scope[:user_id]}).as_json
+      PostIndexSerializer.new(object.interactionable, user_id: instance_options[:user_id],  scope: {user_id: scope[:user_id]}).as_json
     when "Channel"
       channel = Channel.find_by_id(instance_options[:source_id])
-      ChannelSerializer.new(channel, user_id: instance_options[:user_id], scope: {user_id: scope[:user_id]}).as_json if channel
+      ChannelIndexSerializer.new(channel, user_id: instance_options[:user_id], scope: {user_id: scope[:user_id]}).as_json if channel
     end
   end
 
