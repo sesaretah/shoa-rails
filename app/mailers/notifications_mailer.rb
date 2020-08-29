@@ -13,6 +13,8 @@ class NotificationsMailer < ActionMailer::Base
             @body = "#{t(:share_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
         when  'Comment'
             @body = "#{t(:comment_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
+        when  'FollowedComment'
+            @body = "#{t(:comment_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
         when  'Post'
             @body = "#{t(:post_notification)}  #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}" 
         end

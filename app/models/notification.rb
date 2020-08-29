@@ -76,6 +76,9 @@ class Notification < ApplicationRecord
         when  'Comment'
             title = "#{I18n.t(:comment_notification)}  #{I18n.t(:via)} #{notifier} #{I18n.t(:onto)} #{notify_text}" 
             body =  "#{truncate(custom_text)}"
+        when  'FollowedComment'
+            title = "#{I18n.t(:comment_notification)}  #{I18n.t(:via)} #{notifier} #{I18n.t(:onto)} #{notify_text}" 
+            body =  "#{truncate(custom_text)}"
         when  'Post'
             title = "#{I18n.t(:post_notification)}  #{I18n.t(:via)} #{notifier} #{I18n.t(:onto)} #{notify_text}" 
             body =  "#{truncate(custom_text)}"
@@ -90,6 +93,7 @@ class Notification < ApplicationRecord
         return 'add_follows_to_'+ model.downcase.pluralize+'_' if  type == 'Follow'
         return 'add_bookmarks_to_'+ model.downcase.pluralize+'_' if  type == 'Bookmark'
         return 'add_comment_to_'+ model.downcase.pluralize+'_' if  type == 'Comment'
+        return 'add_comment_to_followed_'+ model.downcase.pluralize+'_' if  type == 'FollowedComment'
         return 'add_post_to_'+ model.downcase.pluralize+'_' if  type == 'Post'
 
     end

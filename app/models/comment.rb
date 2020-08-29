@@ -24,15 +24,18 @@ class Comment < ApplicationRecord
    # end
 
     def create_notification
-        Notification.create(
-          notifiable_id: self.post.id, notifiable_type: 'Post', 
-          notification_type: 'Comment', source_user_id: self.user_id, target_user_hash: {},
-          target_user_ids: self.notifiable_followers , seen: false, custom_text: self.content)
+            Notification.create(
+                notifiable_id: self.post.id, notifiable_type: 'Post', 
+                notification_type: 'Comment', source_user_id: self.user_id, target_user_hash: {},
+                target_user_ids: [self.owner.id] , seen: false, custom_text: self.content)
+            Notification.create(
+                notifiable_id: self.post.id, notifiable_type: 'Post', 
+                notification_type: 'FollowedComment', source_user_id: self.user_id, target_user_hash: {},
+                target_user_ids: self.notifiable_followers , seen: false, custom_text: self.content)
     end
 
     def notifiable_followers
-        user_ids = [self.owner.id]
-        user_ids = user_ids + self.post.followers.pluck(:id) if !self.post.blank? && !self.post.followers.blank?
+        user_ids = self.post.followers.pluck(:id) if !self.post.blank? && !self.post.followers.blank?
         return user_ids
     end
 end
