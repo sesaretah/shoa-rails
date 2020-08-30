@@ -28,6 +28,8 @@ class NotificationSerializer < ActiveModel::Serializer
   end
 
   def notification_text 
-    object.fcm_text(nil, object.notification_type, object.user.profile.fullname, object.notifiable.title, object.custom_text)
+    if  !object.notifiable.blank?
+      object.fcm_text(nil, object.notification_type, object.user.profile.fullname, object.notifiable.title, object.custom_text)
+    end
   end
 end

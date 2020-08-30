@@ -102,4 +102,13 @@ class Notification < ApplicationRecord
     def self.user_related(user, page)
         self.where("source_user_id != #{user.id} AND target_user_hash ->> '#{user.id}' = 'true'")
     end
+
+
+    def self.trim_blanks(notifications)
+        result = []
+        for notification in notifications
+          result <<  notification if !notification.notifiable.blank?
+        end
+        return result
+    end
 end
