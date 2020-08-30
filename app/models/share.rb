@@ -13,11 +13,11 @@ class Share < ApplicationRecord
   #end
 
   def create_notification
-    if !self.channel.blank?
-    Notification.create(
-      notifiable_id: self.channel.id, notifiable_type: 'Channel', 
-      notification_type: 'Post', source_user_id: self.user_id, target_user_hash: {},
-      target_user_ids: self.notifiable_followers , seen: false, custom_text: self.post.title)
+    if !self.channel.blank? && !self.notifiable_followers.blank?
+      Notification.create(
+        notifiable_id: self.channel.id, notifiable_type: 'Channel', 
+        notification_type: 'Post', source_user_id: self.user_id, target_user_hash: {},
+        target_user_ids: self.notifiable_followers , seen: false, custom_text: self.post.title)
     end
   end
 
