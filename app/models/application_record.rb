@@ -14,7 +14,7 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def followers
-    User.joins(:interactions).where('interactions.interaction_type = ?', 'Follow')
+    User.joins(:interactions).where('interactions.interaction_type = ? and interactionable_id = ? and interactionable_type = ?', 'Follow', self.id, self.class.name)
   end
 
   def followees
