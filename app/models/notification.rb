@@ -38,11 +38,8 @@ class Notification < ApplicationRecord
 
     def notify_by_mail
         for target_user_id in self.target_user_ids.uniq
-            p '!!!!!!!!!!!!!!!!'
-            p target_user_id
-            p Notification.notification_type_eql(self.notification_type, self.notifiable.class.name)
             if NotificationSetting.check(target_user_id, Notification.notification_type_eql(self.notification_type, self.notifiable.class.name),'email')
-                NotificationsMailer.notify_email(target_user_id, self.notification_type, self.user.profile.fullname, self.notifiable.title, self.custom_text).deliver_later
+                NotificationsMailer.notify_email(target_user_id, self.notification_type, self.user.profile.fullname, self.notifiable.title, self.custom_text, self.notifiable.id, self.notifiable.class.name.downcase.pluralize).deliver_later
             end
         end
     end

@@ -1,7 +1,12 @@
 class NotificationsMailer < ActionMailer::Base
 
-    def notify_email(user_id, notify_type, notifier, notify_text, custom_text, auxiliary_custom_text=nil)
+    def notify_email(user_id, notify_type, notifier, notify_text, custom_text, auxiliary_custom_text=nil, id, notifiable_class)
         @user = User.find(user_id)
+        @url = "#{notifiable_class}/#{id.to_s}"
+        p '§§§§§§§§§§§§§§§§§§§§§§§§'
+        p notifiable_class
+        p id.to_s
+        p @url
         case notify_type
         when  'Like'
             @body = "#{t(:like_notification)} #{t(:via)} #{notifier} #{t(:onto)} #{notify_text}"
