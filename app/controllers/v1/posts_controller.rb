@@ -4,7 +4,7 @@ class V1::PostsController < ApplicationController
     #@friend_ids = Friendship.friend_ids(current_user)
     #posts = Post.where('user_id IN (?)', @friend_ids).order('created_at desc')
     posts = Post.all.order('updated_at DESC').paginate(page: params[:page], per_page: 20)
-    render json: { data: ActiveModel::SerializableResource.new(posts, user_id: current_user.id,  each_serializer: PostSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Post' }, status: :ok
+    render json: { data: ActiveModel::SerializableResource.new(posts, user_id: current_user.id,  each_serializer: PostIndexSerializer, scope: {user_id: current_user.id} ).as_json, klass: 'Post' }, status: :ok
   end
 
   def search
