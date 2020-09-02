@@ -35,7 +35,8 @@ class Comment < ApplicationRecord
     end
 
     def notifiable_followers
-        user_ids = self.post.followers.pluck(:id) if !self.post.blank? && !self.post.followers.blank?
+        user_ids = []
+        user_ids << self.post.followers.pluck(:id) if !self.post.blank? && !self.post.followers.blank?
         return user_ids
     end
 end

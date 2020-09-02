@@ -22,6 +22,7 @@ class Share < ApplicationRecord
   end
 
   def notifiable_followers
+    user_ids = []
     user_ids =  self.channel.followers.pluck(:id) if !self.channel.blank? && !self.channel.followers.blank?
     return user_ids
   end
