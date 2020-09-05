@@ -6,9 +6,8 @@ class V1::RatingsController < ApplicationController
     if rating.blank?
       rating = Rating.new(rating_params)
       rating.user_id = current_user.id
-    else
-      rating.value = params[:value]
     end
+    rating.value = params[:value]
     post = rating.post
     if rating.save
       render json: { data:  PostSerializer.new(post, scope: {user_id: current_user.id}, user_id: current_user.id, page: 1).as_json, klass: 'Post'}, status: :ok

@@ -26,6 +26,7 @@ class Notification < ApplicationRecord
     #belongs_to :user
     after_create :notify_by_fcm
     after_create :notify_by_mail
+    after_create :fix_target_user_hash
     
 
     def self.seen_list(notifications)
@@ -99,8 +100,23 @@ class Notification < ApplicationRecord
         User.find_by_id(self.source_user_id) if self.source_user_id
     end
 
-    def self.user_related(user, page)
-        self.where("source_user_id != #{user.id} AND target_user_hash ->> '#{user.id}' = 'true'")
+    def self.user_related(user, page=1)
+        self.where("source_user_id != #{user.id} AND target_user_hash ->> '#{user.id}' = 'true'").order('created_at DESC')
+    end
+
+    def fix_target_user_hash
+        h = {}
+        for target_user_id in target_user_ids
+            h["#{target_user_id}"] = true
+        end
+        self.target_user_hash = h
+        self.save
+    end
+
+    def self.fix_all_target_user_hash
+        for notification in Notification.all
+            notification.fix_target_user_hash
+        end
     end
 
 

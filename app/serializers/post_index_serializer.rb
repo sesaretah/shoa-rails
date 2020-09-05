@@ -1,5 +1,5 @@
 class PostIndexSerializer < ActiveModel::Serializer
-  include Rails.application.routes.url_helpers
+  #include Rails.application.routes.url_helpers
   attributes :id, :title, :draft, :content, :likes, :bookmarks, :follows, 
   :liked, :bookmarked, :followed, :comments_count, :ratings_count
   belongs_to :profile,  serializer: ProfileIndexSerializer
