@@ -34,7 +34,7 @@ class V1::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    if @post.update_attributes(post_params)
+    if @post.user_id == current_user.id && @post.update_attributes(post_params)
       render json: { data: PostSerializer.new(@post, scope: {user_id: current_user.id}, user_id: current_user.id).as_json, klass: 'Post' }, status: :ok
     else
       render json: { data: @post.errors.full_messages  }, status: :ok
@@ -43,7 +43,7 @@ class V1::PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    if @post.destroy
+    if @post.user_id == current_user.id && @post.destroy
       render json: { data: 'OK', klass: 'PostDelete'}, status: :ok
     end
   end
