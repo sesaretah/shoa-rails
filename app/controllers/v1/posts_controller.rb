@@ -9,8 +9,7 @@ class V1::PostsController < ApplicationController
   def csv
     file = "#{Rails.root}/public/#{params[:id]}.csv"
     @post = Post.find(params[:id])
-    comments = @post.find(66).comments.select("DISTINCT user_id, created_at")
-
+    comments = Post.find_by_sql("SELECT  DISTINCT ON (user_id) user_id, * FROM comments WHERE comments.post_id = #{params[:id]}")
     headers = ["UTID", "Comment"]
     CSV.open(file, "w", write_headers: true, headers: headers) do |writer|
       comments.each do |comment|
