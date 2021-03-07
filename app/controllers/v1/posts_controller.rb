@@ -9,7 +9,7 @@ class V1::PostsController < ApplicationController
   def csv
     file = "#{Rails.root}/public/#{params[:id]}.csv"
     @post = Post.find(params[:id])
-    comments = @post.comments.select("DISTINCT user_id")
+    comments = @post.comments.select("DISTINCT user_id, *")
     headers = ["UTID", "Comment"]
     CSV.open(file, "w", write_headers: true, headers: headers) do |writer|
       comments.each do |comment|
