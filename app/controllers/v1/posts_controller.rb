@@ -6,6 +6,18 @@ class V1::PostsController < ApplicationController
     render json: { data: ActiveModel::SerializableResource.new(posts, user_id: current_user.id, each_serializer: PostIndexSerializer, scope: { user_id: current_user.id }).as_json, klass: "Post" }, status: :ok
   end
 
+  def csv
+    file = "#{Rails.root}/public/#{params[:id]}.csv"
+    @post = Post.find(params[:id])
+    comments = @post.comments.select("DISTINCT user_id")
+    headers = ["UTID", "Comment"]
+    CSV.open(file, "w", write_headers: true, headers: headers) do |writer|
+      comments.each do |comment|
+        writer << [comment.user.utid, comment.content]
+      end
+    end
+  end
+
   def search
     if !params[:q].blank?
       posts = Post.search params[:q], star: true, page: params[:page], per_page: 16

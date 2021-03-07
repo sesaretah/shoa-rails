@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     post "/notification_settings/remove", to: "notification_settings#remove"
 
     get "/users/role", to: "users#role"
+    get "/posts/csv/:id", to: "posts#csv"
     post "/users/change_role", to: "users#change_role"
 
     resources :profiles
