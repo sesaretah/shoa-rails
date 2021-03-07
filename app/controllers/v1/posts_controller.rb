@@ -13,7 +13,7 @@ class V1::PostsController < ApplicationController
     headers = ["UTID", "Comment"]
     CSV.open(file, "w", write_headers: true, headers: headers) do |writer|
       comments.each do |comment|
-        writer << [comment.user.utid, comment.content]
+        writer << [comment.user.name, comment.content]
       end
     end
   end
